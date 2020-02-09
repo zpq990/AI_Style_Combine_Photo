@@ -18,10 +18,17 @@
     + 运行 predict.py 测试(预测): 
         预测暂时只能预测作者已有的test集,自己的图片无法测试,研究中 __(todo)__
   3. 其它补充
+    + 训练好之后model 文件会保存在 models/model.ckpt
+    + tensorboard 文件也在model/logs
 + ## 类说明
-  1.
-  2.
-  3.
+  1. data/retrieve.py
+    + 预处理图片,将图片分门别类
+  2. train.py
+    + 网络结构用的vgg16的13conv,结构如下
+        + ![avatar](13conv.jpg)
+    + 梯度用的是adam的方法,加速收敛
+    + (alphas是标签? __todo__ )
+  3. predict.py与predict_trimap.py(待研究)
 + ## 问题说明
     + 环境问题
         + pytorch的cuda版有很多安装问题,初期安装遇到有如下三个问题
@@ -31,6 +38,25 @@
             + cuda版本显卡对应(cuda版本需要对应本地显卡的型号,还有设置好环境变量)
     + 运行问题
         + data/retrieve.py
-            + 这个是预处理图片数据的类
+            + 这个是预处理图片数据的类,超参设定正确即可
         + train.py
+            + 很多超参设定的问题,主要有以下几个问题:
+                1. parser.add_argument('--gpu_indices', default=[0], type=int, nargs='+',
+                help='The indices of gpus to be used.')
+                2. parser.add_argument('--batch_size_per_gpu', default=1, type=int,
+                    help='Batch size of one gpu.')
+                这两个都是gpu设置问题,第一个是设置gpu集群,初始设置的是1,但是本地的gpu只有一块,并且gpu的id默认是
+                从0开始(当时搞了好久,最后是在cmd中nvdia-smi命令查看显卡信息才设置好)
+                第二个是设置gpu训练的批次数量,默认设置成32(本机比较差,使用的时候用32的batch会导致gpu爆掉,所以设置成1,显卡好的同学可以设置的高一点)
+                3. 
 + ## 未解决问题
+    1. train.py中的问题
+        + ![avatar](3.png)
+        四个参数images,alphas,alphas_noise,masks  
+        按照字面意思,图片,alphas,alphas噪音,未知区域?(待研究)
+    2. 核心的loss函数未搞明白(主要也是上述的4个参数代表的含义没搞明白)
+        + ![avatar](4.png)
+    3. 预测集predict.py与predict_trimap.py
+        + 无法使用自己的数据去预测,目前只能使用作者的test集
+
++ ## tensorboard 效果图集合        
