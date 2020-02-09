@@ -29,7 +29,7 @@
 + 项目地址
     + 抠图训练
         + 1. 基于pytorch   
-            + [Shirhe-Lyh/deep_image_matting_pytorch](https://github.com/Shirhe-Lyh/deep_image_matting_pytorch)
+            + ****[Shirhe-Lyh/deep_image_matting_pytorch](https://github.com/Shirhe-Lyh/deep_image_matting_pytorch)
             + [znxlwm/UGATIT-pytorch](https://github.com/znxlwm/UGATIT-pytorch)
         + 2. 基于tensorflow
             + [foamliu/Deep-Image-Matting](https://github.com/foamliu/Deep-Image-Matting)
